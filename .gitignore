@@ -1,0 +1,10 @@
+# Local secrets and runtime data
+backend/.env
+*.db
+*.sqlite
+
+# Python and Node build artifacts
+__pycache__/
+*.py[cod]
+frontend/node_modules/
+frontend/dist/
