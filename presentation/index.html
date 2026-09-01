@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ControlPlane.ai — Accenture Innovation Challenge 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== GLOBAL RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    /* ===== SLIDE CONTAINER ===== */
+    .slide {
+      width: 100%;
+      max-width: 1024px;
+      aspect-ratio: 16 / 9;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(128, 0, 255, 0.15), 0 4px 20px rgba(0,0,0,0.5);
+      page-break-after: always;
+    }
+
+    /* ===== SLIDE THEMES ===== */
+    .slide--cover {
+      background: linear-gradient(135deg, #1a0033 0%, #2d004d 30%, #4a0080 60%, #7b00cc 100%);
+    }
+    .slide--team {
+      background: #e8e0d0;
+      color: #1a1a1a;
+    }
+    .slide--dark {
+      background: linear-gradient(160deg, #0d001a 0%, #1a0033 40%, #2d004d 100%);
+    }
+    .slide--accent {
+      background: linear-gradient(135deg, #1a0033 0%, #33004d 50%, #5c0099 100%);
+    }
+    .slide--thankyou {
+      background: linear-gradient(135deg, #8b00ff 0%, #5c0099 40%, #2d004d 80%, #1a0033 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .slide-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .slide-title--purple { color: #c77dff; }
+    .slide-subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #cbb3e8;
+      margin-bottom: 20px;
+    }
+    .slide-body {
+      padding: 48px 56px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .slide-body--centered {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ===== BULLET LISTS ===== */
+    .bullets {
+      list-style: none;
+      padding: 0;
+    }
+    .bullets li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      color: #d4c4e8;
+      line-height: 1.5;
+    }
+    .bullets li::before {
+      content: '\25B8';
+      position: absolute;
+      left: 0;
+      color: #a855f7;
+      font-weight: 700;
+    }
+    .bullets li strong { color: #e0ccff; }
+
+    /* ===== CARDS / GRID ===== */
+    .card-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .card-grid--2 { grid-template-columns: 1fr 1fr; }
+    .card-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .card-grid--4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+    .card {
+      background: rgba(128, 0, 255, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .card h4 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #c77dff;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card p, .card li {
+      font-size: 0.78rem;
+      color: #bfa6d6;
+      line-height: 1.5;
+    }
+    .card .big-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #a855f7;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    /* ===== TABLE ===== */
+    .slide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .slide-table th {
+      background: rgba(128, 0, 255, 0.15);
+      color: #c77dff;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.3);
+    }
+    .slide-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+      color: #d4c4e8;
+    }
+    .slide-table tr:hover td { background: rgba(128, 0, 255, 0.05); }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge--green { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+    .badge--yellow { background: rgba(234, 179, 8, 0.2); color: #facc15; }
+    .badge--red { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .badge--purple { background: rgba(168, 85, 247, 0.2); color: #c77dff; }
+
+    /* ===== FOOTER ===== */
+    .slide-footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .slide-footer .accenture-chevron {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .slide-footer--dark { border-top: 1px solid rgba(168, 85, 247, 0.1); }
+
+    /* ===== COVER SLIDE SPECIFICS ===== */
+    .cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 56px;
+    }
+    .cover-overlay h1 {
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .cover-overlay .tagline {
+      display: inline-block;
+      background: linear-gradient(90deg, #8b00ff, #a855f7);
+      color: #ffffff;
+      padding: 8px 24px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ===== TEAM SLIDE ===== */
+    .team-section { padding: 40px 56px; }
+    .team-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+    .team-name {
+      display: inline-block;
+      background: rgba(128, 0, 255, 0.08);
+      border: 2px solid #8b00ff;
+      padding: 6px 24px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2d8b00;
+      margin-bottom: 28px;
+    }
+    .team-members {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .member {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .member-photo {
+      width: 80px;
+      height: 95px;
+      background: #d0c4b0;
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #888;
+      overflow: hidden;
+    }
+    .member-info h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2d8b00;
+      margin-bottom: 4px;
+    }
+    .member-info p {
+      font-size: 0.8rem;
+      color: #444;
+      line-height: 1.5;
+    }
+    .member-info p strong { color: #6b21a8; }
+    .team-footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #8b00ff, #a855f7, #8b00ff);
+    }
+
+    /* ===== ARCHITECTURE DIAGRAM ===== */
+    .arch-box {
+      background: rgba(128, 0, 255, 0.06);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #c77dff;
+      font-weight: 500;
+    }
+    .arch-arrow {
+      text-align: center;
+      color: rgba(168, 85, 247, 0.5);
+      font-size: 1.2rem;
+      padding: 4px 0;
+    }
+
+    /* ===== FLOW INDICATOR ===== */
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .flow-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b00ff, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .flow-text {
+      font-size: 0.82rem;
+      color: #d4c4e8;
+    }
+    .flow-text strong { color: #e0ccff; }
+
+    /* ===== SPEAKER NOTES ===== */
+    .speaker-notes {
+      max-width: 1024px;
+      margin: -20px auto 40px;
+      background: rgba(168, 85, 247, 0.04);
+      border: 1px dashed rgba(168, 85, 247, 0.2);
+      border-radius: 8px;
+      padding: 20px 28px;
+      font-size: 0.82rem;
+      color: #a88bc7;
+      line-height: 1.7;
+    }
+    .speaker-notes::before {
+      content: 'SPEAKER NOTES';
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #8b00ff;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .visual-note {
+      max-width: 1024px;
+      margin: -20px auto 10px;
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px dashed rgba(34, 197, 94, 0.2);
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 0.78rem;
+      color: #6cc98a;
+      line-height: 1.5;
+    }
+    .visual-note::before {
+      content: 'VISUAL SUGGESTION';
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #22c55e;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* ===== EDITABLE HIGHLIGHT ===== */
+    [contenteditable="true"]:focus {
+      outline: 2px solid rgba(168, 85, 247, 0.5);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    [contenteditable="true"]:hover {
+      background: rgba(168, 85, 247, 0.03);
+      cursor: text;
+    }
+
+    /* ===== TOOLBAR ===== */
+    .toolbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .toolbar-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #c77dff;
+    }
+    .toolbar-actions { display: flex; gap: 10px; }
+    .toolbar-btn {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: #c77dff;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toolbar-btn:hover {
+      background: rgba(168, 85, 247, 0.3);
+      color: #fff;
+    }
+    .toolbar-btn--primary {
+      background: linear-gradient(135deg, #8b00ff, #a855f7);
+      border: none;
+      color: #fff;
+    }
+    .toolbar-btn--primary:hover {
+      background: linear-gradient(135deg, #7700dd, #9333ea);
+    }
+
+    /* ===== SECTION DIVIDER ===== */
+    .section-divider {
+      max-width: 1024px;
+      margin: 60px auto 20px;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(168, 85, 247, 0.4);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    body { padding-top: 56px; }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      .toolbar, .speaker-notes, .visual-note, .section-divider { display: none !important; }
+      body { padding-top: 0; background: #fff; }
+      .slide {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+
+    /* ===== CHART PLACEHOLDER ===== */
+    .chart-placeholder {
+      background: rgba(128, 0, 255, 0.05);
+      border: 2px dashed rgba(168, 85, 247, 0.2);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      color: #8b6baa;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+    .chart-placeholder .chart-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+
+    /* ===== TAG / PILL ===== */
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .tag {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      background: rgba(168, 85, 247, 0.12);
+      color: #c77dff;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    /* ===== HORIZONTAL RULE ===== */
+    .slide-hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+      margin: 16px 0;
+    }
+
+    /* ===== RISK TABLE COLORS ===== */
+    .risk-green { color: #4ade80; }
+    .risk-yellow { color: #facc15; }
+    .risk-red { color: #f87171; }
+
+    /* ===== TIMELINE ===== */
+    .timeline {
+      display: flex;
+      gap: 0;
+      margin-top: 12px;
+    }
+    .timeline-item {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 16px 12px 12px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #5c0099, #a855f7);
+    }
+    .timeline-item h5 {
+      font-size: 0.75rem;
+      color: #c77dff;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .timeline-item p {
+      font-size: 0.7rem;
+      color: #bfa6d6;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOOLBAR ===== -->
+<div class="toolbar">
+  <div class="toolbar-title">ControlPlane.ai - Accenture Innovation Challenge 2026 (Editable Deck)</div>
+  <div class="toolbar-actions">
+    <button class="toolbar-btn" onclick="toggleNotes()">Toggle Speaker Notes</button>
+    <button class="toolbar-btn" onclick="toggleVisuals()">Toggle Visual Notes</button>
+    <button class="toolbar-btn toolbar-btn--primary" onclick="window.print()">Export / Print PDF</button>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!--  SLIDE 1 - COVER                                                -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 1 of 18</div>
+
+<div class="slide slide--cover" contenteditable="true">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(26,0,51,0.4) 0%, rgba(26,0,51,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:56px;">
+    <div style="position:absolute;top:32px;left:40px;font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:1px;">
+      <span style="font-weight:800;margin-right:6px;">&gt;</span>accenture
+    </div>
+    <h1 style="font-size:2.6rem;font-weight:300;color:#fff;margin-bottom:12px;letter-spacing:-0.5px;">AI reinvention made real</h1>
+    <div style="display:inline-block;background:linear-gradient(90deg,#8b00ff,#a855f7);color:#fff;padding:8px 24px;font-size:0.9rem;font-weight:500;width:fit-content;">
+      Accenture Innovation Challenge 2026
+    </div>
+  </div>
+</div>
+
+<div class="visual-note">Full-screen image of a professional working with server/AI hardware. Purple gradient overlay with Accenture branding at top-left. Replicate the provided cover slide exactly.</div>
+<div class="speaker-notes">
+  "Good [morning/afternoon], thank you for having us today. We are here to present our solution for the Accenture Innovation Challenge 2026 - a product we call ControlPlane.ai. Over the next 15 minutes, I'll walk you through how we're making AI reinvention not just aspirational, but real and deployable - with a fully working prototype already built."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 2 - TEAM DETAILS                                        -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 2 of 18</div>
+
+<div class="slide slide--team" contenteditable="true">
+  <div class="team-section">
+    <h2>Team details</h2>
+    <div class="team-name">Ghee Khatam</div>
+
+    <div class="team-members">
+      <div class="member">
+        <div class="member-photo">&#128100;</div>
+        <div class="member-info">
+          <h3>Ayush Pandit</h3>
+          <p><strong>College :</strong> IIT GUWAHATI<br/>
+          <strong>Stream :</strong> ECE<br/>
+          <strong>Year of graduation:</strong>2028</p>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member-photo">&#128100;</div>
+        <div class="member-info">
+          <h3>Tabrez Alam</h3>
+          <p><strong>College :</strong> IIT GUWAHATI<br/>
+          <strong>Stream :</strong> Chemical<br/>
+          <strong>Year of graduation:</strong>2028</p>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member-photo">&#128100;</div>
+        <div class="member-info">
+          <h3>Ayush Kumar Bansal</h3>
+          <p><strong>College :</strong> IIT GUWAHATI<br/>
+          <strong>Stream :</strong> Chemical<br/>
+          <strong>Year of graduation:</strong>2028</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="team-footer"></div>
+</div>
+
+<div class="visual-note">Team details page with headshot photos of each team member. Light cream/sage background. Team name "Ghee Khatam" in a bordered box. Replace placeholder icons with actual team member photographs.</div>
+<div class="speaker-notes">
+  "We are Team Ghee Khatam from IIT Guwahati. Our team brings together diverse engineering backgrounds - Electronics and Communication alongside Chemical Engineering - giving us a unique blend of systems-thinking and analytical rigor. All three of us are in our undergraduate programs, graduating in 2028, and we've been deeply passionate about the intersection of AI governance and enterprise safety."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 3 - EXECUTIVE SUMMARY                                   -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 3 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Executive Summary</div>
+    <h2 class="slide-title">The Problem &amp; Our Solution</h2>
+
+    <div class="card-grid card-grid--2" style="flex:1;">
+      <div class="card" style="border-left:3px solid #ef4444;">
+        <h4>The Problem</h4>
+        <ul class="bullets" style="padding-left:0;">
+          <li>Generative AI is deployed across <strong>mission-critical enterprise workloads</strong> - chatbots, copilots, and decision-support systems</li>
+          <li>Every deployment carries three compounding risks: <strong>hallucinations</strong>, <strong>cost overruns</strong>, and <strong>safety violations</strong> (PII leaks, toxicity, bias)</li>
+          <li><strong>73% of enterprises</strong> cite "lack of AI governance" as the #1 barrier to scaling GenAI (Gartner 2025)</li>
+          <li>Current guardrails are <strong>latent, siloed, and reactive</strong> - they catch problems after damage is done</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid #22c55e;">
+        <h4>Our Solution</h4>
+        <ul class="bullets" style="padding-left:0;">
+          <li><strong>ControlPlane.ai</strong> - a real-time, latency-aware AI guardrail middleware that inspects every LLM response <strong>before</strong> it reaches the end user</li>
+          <li>3-Pillar parallel evaluation: <strong>Performance</strong> (hallucination detection) + <strong>Cost</strong> (token/latency SLA) + <strong>Responsibility</strong> (PII, toxicity, bias)</li>
+          <li>Risk-based routing: <strong>PASS, AUTO-CORRECT, BLOCK</strong> with Human-in-the-Loop escalation</li>
+          <li><strong>Working prototype</strong> with 6 validated test scenarios already built and functional</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 3</span>
+  </div>
+</div>
+
+<div class="visual-note">Split-screen layout: Left panel (red accent border) shows the problem, right panel (green accent border) shows the solution. Dark background with glassmorphic cards.</div>
+<div class="speaker-notes">
+  "Let me set the stage. Enterprises are racing to deploy Generative AI across their most critical workflows - customer service, HR, financial advisory. But every one of these deployments carries three compounding risks: the model can hallucinate confidently wrong answers, it can hemorrhage costs through token waste and SLA violations, and it can expose sensitive PII, produce toxic content, or exhibit bias. According to Gartner's 2025 report, 73% of enterprises cite lack of AI governance as their number one barrier to scaling GenAI. And here's the critical gap - existing guardrails are either too slow, too siloed, or too reactive. They catch problems after the damage is done. ControlPlane.ai solves this. We sit as a real-time middleware layer that inspects every LLM response BEFORE it reaches the user, evaluates it across three parallel pillars - Performance, Cost, and Responsibility - and routes it through a Check-Score-Act pipeline. And this isn't a concept deck - we have a fully working prototype with six validated enterprise scenarios already functional."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 4 - MARKET OPPORTUNITY                                  -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 4 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Market Opportunity</div>
+    <h2 class="slide-title">A $7.8B Market Growing at 32% CAGR</h2>
+
+    <div class="card-grid card-grid--3" style="margin-bottom:20px;">
+      <div class="card" style="text-align:center;">
+        <div class="big-number">$7.8B</div>
+        <h4>TAM (2028)</h4>
+        <p>Global AI Safety, Governance &amp; Compliance market</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="big-number">$2.4B</div>
+        <h4>SAM (2028)</h4>
+        <p>Enterprise LLM guardrails &amp; real-time output governance</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="big-number">$180M</div>
+        <h4>SOM (Year 3)</h4>
+        <p>Achievable share in BFSI, Healthcare, &amp; Tech verticals</p>
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px 20px;">
+      <h4 style="margin-bottom:6px;">Key Industry Tailwinds</h4>
+      <div class="card-grid card-grid--2" style="gap:8px;">
+        <p>EU AI Act mandates <strong>real-time output monitoring</strong> for high-risk AI systems (2026 enforcement)</p>
+        <p>India's DPDPA 2023 requires stringent <strong>PII safeguarding</strong> across AI deployments</p>
+        <p>82% of CIOs plan to increase <strong>AI governance spend</strong> by 2027 (McKinsey)</p>
+        <p>Enterprise GenAI adoption expected to reach <strong>75% penetration</strong> by 2028 (IDC)</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 4</span>
+  </div>
+</div>
+
+<div class="visual-note">Insert a TAM/SAM/SOM concentric circle diagram on the left or top. Below it, a line graph showing the AI Governance market growth from 2024 to 2028 at 32% CAGR. Sources: Gartner, McKinsey, IDC market reports.</div>
+<div class="speaker-notes">
+  "The timing for ControlPlane.ai couldn't be better. The global AI Safety, Governance, and Compliance market is projected to reach $7.8 billion by 2028, growing at a 32% compound annual growth rate. Our serviceable addressable market - enterprise LLM guardrails and real-time output governance - represents $2.4 billion of that. And we're targeting an achievable $180 million in BFSI, Healthcare, and Technology verticals within 3 years. The regulatory tailwinds are massive: the EU AI Act comes into enforcement in 2026, mandating real-time output monitoring for high-risk AI. India's DPDPA requires stringent PII safeguarding. And according to McKinsey, 82% of CIOs plan to increase their AI governance spending by 2027. The market is not just growing - it's being mandated."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 5 - PROBLEM DEEP-DIVE                                   -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 5 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Problem Deep-Dive</div>
+    <h2 class="slide-title">Why Current Solutions Fail Enterprises</h2>
+
+    <div class="card-grid card-grid--3" style="margin-bottom:16px;">
+      <div class="card">
+        <h4>Latent &amp; Post-Hoc</h4>
+        <p>Traditional monitoring tools analyze outputs <strong>after delivery</strong>. By then, the PII is leaked, the hallucination is believed, and the damage is done.</p>
+      </div>
+      <div class="card">
+        <h4>Single-Dimensional</h4>
+        <p>Existing guardrails check for safety <strong>OR</strong> accuracy <strong>OR</strong> cost - never all three simultaneously. Real enterprise risk is <strong>multi-signal</strong>.</p>
+      </div>
+      <div class="card">
+        <h4>One-Size-Fits-All</h4>
+        <p>No policy customization per department. An HR copilot needs <strong>different thresholds</strong> than a customer support bot - current tools don't adapt.</p>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px 20px;">
+      <h4 style="margin-bottom:8px;">The Cost of Inaction</h4>
+      <div class="card-grid card-grid--4" style="gap:12px;">
+        <div style="text-align:center;">
+          <div class="big-number" style="font-size:1.4rem;color:#f87171;">$4.45M</div>
+          <p style="font-size:0.7rem;">Avg. data breach cost (IBM 2025)</p>
+        </div>
+        <div style="text-align:center;">
+          <div class="big-number" style="font-size:1.4rem;color:#f87171;">37%</div>
+          <p style="font-size:0.7rem;">LLM outputs with factual errors in enterprise settings</p>
+        </div>
+        <div style="text-align:center;">
+          <div class="big-number" style="font-size:1.4rem;color:#f87171;">$2.1M</div>
+          <p style="font-size:0.7rem;">Annual wasted GenAI compute from token overruns</p>
+        </div>
+        <div style="text-align:center;">
+          <div class="big-number" style="font-size:1.4rem;color:#f87171;">68%</div>
+          <p style="font-size:0.7rem;">Enterprises with at least 1 AI compliance incident/year</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 5</span>
+  </div>
+</div>
+
+<div class="visual-note">Top section: 3 icon cards showing failure modes. Bottom: 4-column infographic strip with red-highlighted statistics. Consider a horizontal bar chart comparing "Time to detect AI incident" across current tools vs. ControlPlane.ai.</div>
+<div class="speaker-notes">
+  "Let's understand why current solutions aren't enough. First, they're latent and post-hoc - traditional monitoring analyzes outputs after they've already been delivered. The PII is already leaked. The hallucinated medical advice is already believed. Second, they're single-dimensional. Most tools check for safety OR accuracy OR cost - never all three simultaneously. Real enterprise risk is multi-signal. Third, they're one-size-fits-all. An HR copilot handling employee salary data needs fundamentally different safety thresholds than a customer support bot - and current tools simply don't adapt. The cost of inaction is staggering: $4.45 million is the average data breach cost according to IBM. 37% of LLM outputs in enterprise settings contain factual errors. $2.1 million is wasted annually per enterprise on GenAI compute overruns. And 68% of enterprises have experienced at least one AI compliance incident in the past year."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 6 - SOLUTION OVERVIEW                                   -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 6 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Our Solution</div>
+    <h2 class="slide-title">ControlPlane.ai - Real-Time Responsible AI Guardrail</h2>
+    <p class="slide-subtitle" style="margin-bottom:20px;">A latency-aware middleware that intercepts, evaluates, and governs every LLM response before it reaches the end user.</p>
+
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:16px;">
+      <div class="arch-box" style="width:50%;">Enterprise App / User Query</div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-box" style="width:60%;background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.5);">ControlPlane Gateway API &nbsp;&larr;&rarr;&nbsp; Ground-Truth Knowledge DB</div>
+      <div class="arch-arrow">&darr;</div>
+      <div style="display:flex;gap:12px;width:80%;">
+        <div class="arch-box" style="flex:1;">Primary LLM<br/><span style="font-size:0.65rem;color:#8b6baa;">(Gemini / OpenAI / Custom)</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px;flex:1.5;">
+          <div class="arch-box" style="font-size:0.7rem;">Performance Evaluator (Grounding vs DB)</div>
+          <div class="arch-box" style="font-size:0.7rem;">Cost &amp; Efficiency Evaluator (Tokens, SLA)</div>
+          <div class="arch-box" style="font-size:0.7rem;">Responsibility Evaluator (PII, Toxicity, Bias)</div>
+        </div>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-box" style="width:50%;background:rgba(168,85,247,0.12);">Multi-Signal Scorer (Weighted + Hard Floor Rules)</div>
+      <div class="arch-arrow">&darr;</div>
+      <div style="display:flex;gap:12px;width:75%;">
+        <div class="arch-box" style="flex:1;border-color:#22c55e;color:#4ade80;">LOW<br/>Pass Through</div>
+        <div class="arch-box" style="flex:1;border-color:#eab308;color:#facc15;">MEDIUM<br/>Auto-Redact</div>
+        <div class="arch-box" style="flex:1;border-color:#ef4444;color:#f87171;">HIGH<br/>Block &amp; Escalate</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 6</span>
+  </div>
+</div>
+
+<div class="visual-note">Architecture flow diagram showing the Check, Score, Act pipeline. Use a vertical flow with the 3 evaluators running in parallel. Color-coded risk tiers at the bottom (green/yellow/red).</div>
+<div class="speaker-notes">
+  "Here's how ControlPlane.ai works. An enterprise application sends a user query through our Gateway API. We forward it to the primary LLM - which can be Gemini, GPT, or any model. When the response comes back, instead of sending it directly to the user, we intercept it and run it through our 3-Pillar Parallel Inspection Engine. The Performance Evaluator checks factual grounding against our enterprise Knowledge Database - catching hallucinations and fabricated policies. The Cost Evaluator monitors token consumption, latency against SLA budgets, and detects wasteful agent loops. The Responsibility Evaluator uses deterministic regex and entity classifiers to detect PII like SSNs, credit cards, and salary data, plus checks for toxicity and bias patterns. These scores feed into our Multi-Signal Scorer which computes a weighted quality score and checks for Hard Floor safety overrides. Based on the result, we route to one of three actions: Pass instantly for low-risk, Auto-correct and redact for medium-risk, or Block and escalate to human review for high-risk content. This entire pipeline runs with under 12 milliseconds of overhead."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 7 - 3-PILLAR EVALUATION ENGINE                          -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 7 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Key Features - Prototype Showcase</div>
+    <h2 class="slide-title">3-Pillar Parallel Inspection Engine</h2>
+
+    <div class="card-grid card-grid--3" style="flex:1;">
+      <div class="card" style="border-top:3px solid #3b82f6;">
+        <h4 style="color:#60a5fa;">Performance Evaluator</h4>
+        <ul class="bullets">
+          <li><strong>Factual grounding</strong> against enterprise Ground-Truth Knowledge Base</li>
+          <li><strong>Hallucination detection</strong> - fabricated return policies, unauthorized discounts, fake URLs</li>
+          <li><strong>Self-contradiction detection</strong> - conflicting claims within same response</li>
+          <li><strong>Overconfidence calibration</strong> - flags "100% certainty" claims on speculative topics</li>
+          <li><strong>Out-of-domain detection</strong> - catches model inventing answers for unverified topics</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Policy Hallucination</span>
+          <span class="tag">Fact Verification</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #eab308;">
+        <h4 style="color:#facc15;">Cost &amp; Efficiency Evaluator</h4>
+        <ul class="bullets">
+          <li><strong>Token budget tracking</strong> - alerts on overspend with dynamic penalty scoring</li>
+          <li><strong>Latency SLA monitoring</strong> - flags responses exceeding configured ms budget</li>
+          <li><strong>Agent loop detection</strong> - identifies repetitive reasoning waste (&gt;35% sentence redundancy)</li>
+          <li><strong>Verbosity detection</strong> - catches excessive padding on simple factual queries</li>
+          <li><strong>Real-time cost estimation</strong> - per-query USD spend calculation</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Token SLA</span>
+          <span class="tag">Loop Detection</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #ef4444;">
+        <h4 style="color:#f87171;">Responsibility Evaluator</h4>
+        <ul class="bullets">
+          <li><strong>PII Detection</strong> - SSN, credit cards, emails, phone numbers, employee IDs, salary disclosure</li>
+          <li><strong>Toxicity filter</strong> - zero-tolerance detection of abusive and harmful language</li>
+          <li><strong>Bias pattern detection</strong> - gender, age, and demographic stereotyping classifiers</li>
+          <li><strong>Auto-redaction</strong> - replaces detected PII with [REDACTED] tokens for medium-risk</li>
+          <li><strong>Hard Floor overrides</strong> - immediate block for critical violations (credit cards, severe PII)</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">6 PII Types</span>
+          <span class="tag">Bias Classifier</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 7</span>
+  </div>
+</div>
+
+<div class="visual-note">3-column feature cards with colored top borders (blue, yellow, red). Each card could include a small icon or illustration. Consider animating these columns to appear sequentially during the presentation.</div>
+<div class="speaker-notes">
+  "Let me walk you through the three evaluation pillars that run in parallel on every single LLM response. The Performance Evaluator handles factual grounding. It cross-references responses against our enterprise Knowledge Base to catch hallucinations - like a chatbot inventing a 90-day return policy when the actual policy is 30 days. It also catches fabricated URLs, self-contradictions, and overconfident claims. The Cost and Efficiency Evaluator monitors token consumption against policy budgets, tracks latency SLA compliance, and - critically - detects agent reasoning loops. We actually catch when a model starts repeating itself, wasting compute cycles. Our threshold is 35% sentence redundancy. And the Responsibility Evaluator is our safety layer. It uses deterministic regex classifiers to detect 6 types of PII: SSNs, credit card numbers, emails, phone numbers, employee IDs, and salary disclosures. It also has zero-tolerance toxicity filtering and bias pattern detection for gender, age, and demographic stereotyping. All of these run in parallel - not sequentially - keeping our overhead minimal."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 8 - POLICY MANAGER                                      -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 8 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Core Capability</div>
+    <h2 class="slide-title">Policy Manager - Department-Level Governance</h2>
+    <p class="slide-subtitle">Configurable per-department policies with custom thresholds, weights, and safety toggles.</p>
+
+    <table class="slide-table" style="margin-bottom:16px;">
+      <thead>
+        <tr>
+          <th>Policy Parameter</th>
+          <th>Customer Support</th>
+          <th>HR Copilot</th>
+          <th>Financial Advisory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Min Pass Score</td>
+          <td>85%</td>
+          <td>90%</td>
+          <td>95%</td>
+        </tr>
+        <tr>
+          <td>Performance Weight</td>
+          <td>40%</td>
+          <td>30%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <td>Cost Weight</td>
+          <td>20%</td>
+          <td>20%</td>
+          <td>10%</td>
+        </tr>
+        <tr>
+          <td>Responsibility Weight</td>
+          <td>40%</td>
+          <td>50%</td>
+          <td>40%</td>
+        </tr>
+        <tr>
+          <td>Block on PII</td>
+          <td><span class="badge badge--yellow">Auto-Redact</span></td>
+          <td><span class="badge badge--red">Block</span></td>
+          <td><span class="badge badge--red">Block</span></td>
+        </tr>
+        <tr>
+          <td>Block on Hallucination</td>
+          <td><span class="badge badge--red">Block</span></td>
+          <td><span class="badge badge--red">Block</span></td>
+          <td><span class="badge badge--red">Block</span></td>
+        </tr>
+        <tr>
+          <td>Max Latency Budget</td>
+          <td>1,500ms</td>
+          <td>2,000ms</td>
+          <td>1,000ms</td>
+        </tr>
+        <tr>
+          <td>Max Token Budget</td>
+          <td>1,000</td>
+          <td>800</td>
+          <td>500</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="padding:12px 20px;">
+      <p style="font-size:0.78rem;color:#bfa6d6;"><strong style="color:#c77dff;">Key Insight:</strong> The same LLM response would receive a PASS in Customer Support but a BLOCK in Financial Advisory - because the policy thresholds are different. This is the power of department-level governance.</p>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 8</span>
+  </div>
+</div>
+
+<div class="visual-note">Data table showing policy configurations across departments. Screenshot of the actual Policy Manager UI from the prototype dashboard. Highlight the customizable nature with toggle switches and threshold sliders.</div>
+<div class="speaker-notes">
+  "The Policy Manager is one of our most differentiating features. This isn't a one-size-fits-all guardrail. Enterprise governance teams can configure per-department policies with custom thresholds, weights, and safety toggles. Look at this comparison: Customer Support has a pass threshold of 85% with balanced weights. But HR needs a higher pass score of 90% and a heavier Responsibility weight of 50% because it handles sensitive employee data. Financial Advisory is even stricter - 95% pass score with the highest Performance weight because financial hallucinations can lead to regulatory violations. The same LLM response might pass in Customer Support but be blocked in Financial Advisory. That's real enterprise governance. And this is fully functional in our prototype - governance teams can modify these policies through our dashboard UI in real time."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 9 - KNOWLEDGE SERVICE                                   -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 9 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Core Capability</div>
+    <h2 class="slide-title">Knowledge Service - Enterprise Ground-Truth Engine</h2>
+    <p class="slide-subtitle">A managed repository of verified facts that grounds every AI response against corporate truth.</p>
+
+    <div class="card-grid card-grid--2" style="margin-bottom:16px;">
+      <div class="card">
+        <h4>How It Works</h4>
+        <div class="flow-step"><div class="flow-number">1</div><div class="flow-text"><strong>Knowledge Documents</strong> are stored per department with verified key facts, tags, and content</div></div>
+        <div class="flow-step"><div class="flow-number">2</div><div class="flow-text"><strong>Keyword-ranked retrieval</strong> fetches relevant documents based on query context</div></div>
+        <div class="flow-step"><div class="flow-number">3</div><div class="flow-text"><strong>Fact verification</strong> cross-checks LLM claims against stored ground truths</div></div>
+        <div class="flow-step"><div class="flow-number">4</div><div class="flow-text"><strong>Contradiction detection</strong> flags specific policy violations with source attribution</div></div>
+      </div>
+
+      <div class="card">
+        <h4>Real Example from Prototype</h4>
+        <div style="background:rgba(0,0,0,0.2);border-radius:6px;padding:12px;font-size:0.75rem;font-family:monospace;color:#d4c4e8;margin-bottom:8px;">
+          <div style="color:#4ade80;margin-bottom:4px;">Knowledge Doc: "Return &amp; Refund Policy"</div>
+          <div style="color:#8b6baa;">Key Fact: "Standard return window is 30 days"</div>
+          <div style="color:#8b6baa;">Key Fact: "Maximum discount is 15%"</div>
+        </div>
+        <div style="background:rgba(239,68,68,0.1);border-radius:6px;padding:12px;font-size:0.75rem;font-family:monospace;color:#f87171;">
+          <div style="margin-bottom:4px;">LLM Response: "You can return within <strong>90 days</strong> and get <strong>50% off</strong>"</div>
+          <div style="color:#facc15;">Contradiction: Wrong return window + Unauthorized discount</div>
+          <div style="color:#f87171;">Action: BLOCKED (Ungrounded Policy Hallucination)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 20px;">
+      <p style="font-size:0.78rem;color:#bfa6d6;"><strong style="color:#c77dff;">Departments Supported:</strong> Customer Support, HR, Financial Advisory, Medical - each with their own verified knowledge corpus.</p>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 9</span>
+  </div>
+</div>
+
+<div class="visual-note">Left: Numbered flow showing how Knowledge Service works. Right: Live code-style example showing a Knowledge Document vs. a contradicting LLM response being caught. Screenshot of the Knowledge Base UI from the prototype.</div>
+<div class="speaker-notes">
+  "The Knowledge Service is what makes our hallucination detection truly enterprise-grade. We don't just do generic fact-checking - we maintain a managed repository of verified corporate facts organized by department. Here's how it works: Knowledge Documents are stored with verified key facts, tags, and content. When a query comes in, our system retrieves relevant documents using keyword-ranked scoring. Then, our fact verification engine cross-checks every claim in the LLM response against these ground truths. Let me show you a real example from our prototype. We have a Knowledge Document that stores the return policy: 30-day return window, maximum 15% discount. When the LLM responds with '90-day return and 50% off,' our system catches both contradictions - wrong return window AND unauthorized discount - and immediately blocks the response with source attribution. This is running live in our prototype across Customer Support, HR, Financial Advisory, and Medical departments."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 10 - HITL & DASHBOARD                                   -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 10 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Enterprise Features</div>
+    <h2 class="slide-title">Human-in-the-Loop Console &amp; Executive Dashboard</h2>
+
+    <div class="card-grid card-grid--2" style="flex:1;">
+      <div class="card">
+        <h4>HITL Triage Console</h4>
+        <ul class="bullets">
+          <li>Real-time <strong>incident queue</strong> for all blocked HIGH-risk responses</li>
+          <li>Full context: original prompt, raw response, risk scores, specific flags raised</li>
+          <li>Reviewer actions: <strong>Approve</strong>, <strong>Modify &amp; Release</strong>, or <strong>Confirm Block</strong></li>
+          <li>Reviewer corrections and notes stored as <strong>auditable feedback</strong></li>
+          <li>Feedback loop: corrections feed back into <strong>policy improvement suggestions</strong></li>
+        </ul>
+        <div style="background:rgba(0,0,0,0.15);border-radius:6px;padding:10px;margin-top:8px;font-size:0.72rem;color:#bfa6d6;">
+          <strong style="color:#facc15;">Status Workflow:</strong> PENDING &rarr; APPROVED / MODIFIED / REJECTED
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Executive Analytics Dashboard</h4>
+        <ul class="bullets">
+          <li><strong>Fleet-wide pass rate</strong> - percentage of LLM responses passing governance</li>
+          <li><strong>Intervention count</strong> - AUTO_CORRECT and BLOCK frequency per department</li>
+          <li><strong>Review outcomes</strong> - approval vs. rejection rates from HITL reviewers</li>
+          <li><strong>Cost monitoring</strong> - per-model token spend, estimated USD burn rate</li>
+          <li><strong>Gateway overhead</strong> - mean latency added by ControlPlane (target: &lt;15ms)</li>
+          <li><strong>Trend analysis</strong> - daily/weekly risk score distributions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 10</span>
+  </div>
+</div>
+
+<div class="visual-note">Left: Screenshot of the HITL Review Console from the working prototype showing a blocked response with risk flags. Right: Screenshot of the Analytics Dashboard with pass-rate gauges, intervention bar charts, and cost graphs.</div>
+<div class="speaker-notes">
+  "Enterprise AI governance isn't just about automated blocking - it needs human oversight. Our Human-in-the-Loop Triage Console provides a real-time incident queue where compliance reviewers can see every blocked response with full context: the original prompt, the raw LLM response, all risk scores, and the specific flags that triggered the block. Reviewers can Approve, Modify and Release, or Confirm the Block - and every action is stored as auditable feedback for governance teams. On the right, our Executive Dashboard gives leadership fleet-wide visibility: overall pass rates, intervention frequency by department, reviewer outcomes, token cost monitoring, and - critically - the gateway overhead. Our target is under 15 milliseconds of added latency. Both of these are fully functional in our prototype."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 11 - PROTOTYPE DEMO SCENARIOS                           -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 11 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Traction &amp; Validation</div>
+    <h2 class="slide-title">6 Validated Enterprise Test Scenarios</h2>
+    <p class="slide-subtitle">Every scenario runs end-to-end in our working prototype with real scoring and routing.</p>
+
+    <table class="slide-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Scenario</th>
+          <th>Department</th>
+          <th>Threat Detected</th>
+          <th>Score</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Standard Valid Return Inquiry</td>
+          <td>Customer Support</td>
+          <td>None - clean response</td>
+          <td class="risk-green"><strong>100%</strong></td>
+          <td><span class="badge badge--green">PASS</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Severe Hallucination (90-day return + 50% off)</td>
+          <td>Customer Support</td>
+          <td>Ungrounded policy fabrication</td>
+          <td class="risk-red"><strong>15%</strong></td>
+          <td><span class="badge badge--red">BLOCK</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Critical PII Leak (Salary $185K + SSN)</td>
+          <td>HR Copilot</td>
+          <td>SSN + Salary disclosure</td>
+          <td class="risk-red"><strong>0%</strong></td>
+          <td><span class="badge badge--red">BLOCK</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Toxic Outburst (Abusive language)</td>
+          <td>Financial Advisory</td>
+          <td>Zero-tolerance toxicity trigger</td>
+          <td class="risk-red"><strong>0%</strong></td>
+          <td><span class="badge badge--red">BLOCK</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Agent Loop (Duplicate sentence repetition)</td>
+          <td>Customer Support</td>
+          <td>35%+ sentence redundancy</td>
+          <td class="risk-yellow"><strong>62%</strong></td>
+          <td><span class="badge badge--yellow">AUTO-CORRECT</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Bias Pattern (Discriminatory hiring assertion)</td>
+          <td>HR Screening</td>
+          <td>Gender/demographic bias</td>
+          <td class="risk-red"><strong>10%</strong></td>
+          <td><span class="badge badge--red">BLOCK</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="padding:10px 20px;margin-top:auto;">
+      <p style="font-size:0.75rem;color:#4ade80;"><strong>Gateway Overhead:</strong> &lt;12ms on standard valid queries | All scenarios run end-to-end in the live prototype</p>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 11</span>
+  </div>
+</div>
+
+<div class="visual-note">Data table with color-coded score and action columns. Each row could animate in sequentially. Consider a side panel showing a screenshot of the Playground UI with one scenario being tested in real-time.</div>
+<div class="speaker-notes">
+  "This isn't a concept. Let me walk you through the six enterprise scenarios we've validated end-to-end in our working prototype. Scenario 1: A standard valid return inquiry in Customer Support passes with a perfect 100% score in under 12 milliseconds of overhead. Scenario 2: The model fabricates a 90-day return policy and promises 50% off - our Performance Evaluator cross-checks against the Knowledge Base, catches both hallucinations, and blocks it at 15%. Scenario 3: An HR Copilot leaks an employee's salary of $185,000 and their SSN. Our Responsibility Evaluator triggers the Hard Floor Override and immediately blocks with a 0% score. Scenario 4: Toxic outburst in a Financial Advisory context - zero-tolerance immediate block. Scenario 5: Agent reasoning loop with over 35% sentence redundancy - the Cost Evaluator catches this and auto-corrects the response. Scenario 6: Discriminatory hiring assertion in HR Screening - bias pattern detected and blocked. Every single one of these runs live, end-to-end, in our prototype right now."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 12 - COMPETITIVE ADVANTAGE                              -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 12 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Competitive Advantage</div>
+    <h2 class="slide-title">Why ControlPlane.ai Wins</h2>
+
+    <table class="slide-table" style="margin-bottom:16px;">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th style="text-align:center;">ControlPlane.ai</th>
+          <th style="text-align:center;">NeMo Guardrails</th>
+          <th style="text-align:center;">Guardrails AI</th>
+          <th style="text-align:center;">Custom In-House</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Real-time interception (pre-delivery)</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#facc15;">Partial</td>
+          <td style="text-align:center;color:#facc15;">Partial</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+        </tr>
+        <tr>
+          <td>3-Pillar parallel evaluation</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">Safety only</td>
+          <td style="text-align:center;color:#f87171;">Validation only</td>
+          <td style="text-align:center;color:#facc15;">Limited</td>
+        </tr>
+        <tr>
+          <td>Per-department policy engine</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#facc15;">Custom</td>
+        </tr>
+        <tr>
+          <td>Enterprise Knowledge Base grounding</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+        </tr>
+        <tr>
+          <td>Human-in-the-Loop triage</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#facc15;">Partial</td>
+        </tr>
+        <tr>
+          <td>Cost &amp; efficiency monitoring</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+        </tr>
+        <tr>
+          <td>Closed-loop feedback learning</td>
+          <td style="text-align:center;color:#4ade80;">Yes</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+          <td style="text-align:center;color:#facc15;">Partial</td>
+          <td style="text-align:center;color:#f87171;">No</td>
+        </tr>
+        <tr>
+          <td>Gateway overhead</td>
+          <td style="text-align:center;color:#4ade80;"><strong>&lt;12ms</strong></td>
+          <td style="text-align:center;color:#facc15;">50-200ms</td>
+          <td style="text-align:center;color:#facc15;">100-500ms</td>
+          <td style="text-align:center;color:#facc15;">Varies</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="padding:12px 20px;">
+      <p style="font-size:0.78rem;color:#bfa6d6;"><strong style="color:#c77dff;">Our Moat:</strong> Only solution combining real-time 3-pillar evaluation + enterprise knowledge grounding + per-department policy governance + HITL feedback loop - with &lt;12ms overhead.</p>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 12</span>
+  </div>
+</div>
+
+<div class="visual-note">Competitive comparison matrix with checkmarks/crosses. ControlPlane.ai column should be visually highlighted (brighter, bolder). Consider a radar/spider chart below the table showing capability coverage area.</div>
+<div class="speaker-notes">
+  "Let's talk about why ControlPlane.ai wins against the alternatives. NeMo Guardrails focuses primarily on safety rails - it doesn't do cost monitoring, knowledge grounding, or HITL triage. Guardrails AI is more of a validation framework - it lacks real-time interception, policy customization, and knowledge-base grounding. Custom in-house solutions are expensive, fragmented, and rarely cover all three pillars. Our competitive moat is clear: we are the only solution that combines real-time 3-pillar evaluation, enterprise knowledge grounding, per-department policy governance, Human-in-the-Loop feedback, AND cost monitoring - all with under 12 milliseconds of gateway overhead. That last point matters because if a guardrail adds 500ms to every response, enterprises won't deploy it. We add less than 12."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 13 - BUSINESS MODEL                                     -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 13 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Business Model</div>
+    <h2 class="slide-title">Pricing &amp; Revenue Model</h2>
+
+    <div class="card-grid card-grid--3" style="margin-bottom:16px;">
+      <div class="card" style="border-top:3px solid #60a5fa;">
+        <h4 style="color:#60a5fa;">Starter</h4>
+        <div class="big-number" style="font-size:1.6rem;">$2,500</div>
+        <p style="margin-bottom:8px;">/month</p>
+        <hr class="slide-hr"/>
+        <ul class="bullets">
+          <li>Up to <strong>100K API calls</strong>/month</li>
+          <li>2 department policies</li>
+          <li>Basic analytics dashboard</li>
+          <li>Email support</li>
+          <li>Community Knowledge Base</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid #a855f7;background:rgba(168,85,247,0.12);">
+        <h4 style="color:#c77dff;">Professional</h4>
+        <div class="big-number" style="font-size:1.6rem;">$8,000</div>
+        <p style="margin-bottom:8px;">/month</p>
+        <hr class="slide-hr"/>
+        <ul class="bullets">
+          <li>Up to <strong>1M API calls</strong>/month</li>
+          <li>Unlimited department policies</li>
+          <li>Full analytics + HITL console</li>
+          <li>Custom Knowledge Base</li>
+          <li>Priority support + SLA</li>
+          <li>SSO &amp; audit logs</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid #22c55e;">
+        <h4 style="color:#4ade80;">Enterprise</h4>
+        <div class="big-number" style="font-size:1.6rem;">Custom</div>
+        <p style="margin-bottom:8px;">annual contract</p>
+        <hr class="slide-hr"/>
+        <ul class="bullets">
+          <li><strong>Unlimited</strong> API calls</li>
+          <li>On-premise / VPC deployment</li>
+          <li>Custom evaluator plugins</li>
+          <li>Dedicated CSM + 24/7 support</li>
+          <li>Multi-region compliance</li>
+          <li>White-label option</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 20px;">
+      <h4 style="margin-bottom:6px;">Revenue Diversification</h4>
+      <div style="display:flex;gap:24px;font-size:0.78rem;color:#bfa6d6;">
+        <span><strong>SaaS Subscriptions</strong> (70%)</span>
+        <span><strong>Implementation Services</strong> (15%)</span>
+        <span><strong>Usage-Based Overage</strong> (10%)</span>
+        <span><strong>Training &amp; Cert</strong> (5%)</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 13</span>
+  </div>
+</div>
+
+<div class="visual-note">3-column pricing card layout (Starter / Professional / Enterprise) with the Professional tier visually highlighted as "Most Popular." Below, a horizontal bar or pie chart showing revenue mix breakdown.</div>
+<div class="speaker-notes">
+  "Our business model follows a proven B2B SaaS pricing structure with three tiers. The Starter tier at $2,500 per month targets SMBs and pilot deployments - up to 100K API calls with basic analytics. The Professional tier at $8,000 per month is our sweet spot for mid-market enterprises - 1 million calls, unlimited policies, full HITL console, and custom Knowledge Base integration. Enterprise is custom-priced annual contracts for large organizations needing on-premise deployment, custom evaluator plugins, and multi-region compliance. Our revenue diversification strategy ensures we're not solely dependent on subscriptions: SaaS subscriptions represent 70% of revenue, with implementation services at 15%, usage-based overage at 10%, and training and certification programs at 5%. This gives us predictable recurring revenue with healthy expansion opportunities."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 14 - GO-TO-MARKET STRATEGY                              -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 14 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Go-To-Market Strategy</div>
+    <h2 class="slide-title">Land, Expand, Dominate</h2>
+
+    <div class="card-grid card-grid--3" style="margin-bottom:16px;">
+      <div class="card">
+        <h4>Phase 1: Land (Months 1-6)</h4>
+        <ul class="bullets">
+          <li><strong>Target:</strong> 10 design-partner enterprises in BFSI &amp; Healthcare</li>
+          <li>Free pilot program with <strong>Starter tier</strong></li>
+          <li>Direct enterprise sales via <strong>Accenture partner channel</strong></li>
+          <li>Published case studies from pilot results</li>
+          <li>Developer advocacy through <strong>open-source evaluator SDK</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Phase 2: Expand (Months 6-18)</h4>
+        <ul class="bullets">
+          <li>Convert pilots to <strong>Professional tier</strong> paid contracts</li>
+          <li>Expand within accounts: <strong>1 department to 5 departments</strong></li>
+          <li>Launch <strong>partner integrations</strong> (Azure, AWS, GCP marketplaces)</li>
+          <li>Build <strong>industry-specific policy packs</strong> (HIPAA, SOX, PCI-DSS)</li>
+          <li>Content marketing: AI governance thought leadership</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Phase 3: Dominate (Months 18-36)</h4>
+        <ul class="bullets">
+          <li>Enterprise tier with <strong>on-premise / VPC</strong> for regulated industries</li>
+          <li>International expansion: <strong>EU, APAC, Middle East</strong></li>
+          <li>Platform play: <strong>Evaluator Marketplace</strong> for custom plugins</li>
+          <li>Strategic partnerships with <strong>system integrators</strong></li>
+          <li>Target: <strong>100+ enterprise accounts</strong>, $15M+ ARR</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 20px;">
+      <h4 style="margin-bottom:6px;">Strategic Channel Advantage</h4>
+      <p style="font-size:0.78rem;color:#bfa6d6;">Accenture's global enterprise footprint provides a <strong>direct sales channel</strong> to 6,000+ enterprise clients already deploying GenAI. Our solution integrates into existing Accenture AI transformation engagements as a <strong>governance layer add-on</strong>.</p>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 14</span>
+  </div>
+</div>
+
+<div class="visual-note">3-phase horizontal timeline with expanding funnel visualization. Each phase shows increasing scale (10 to 50 to 100+ clients). Include logos of target cloud marketplaces (Azure, AWS, GCP) in Phase 2.</div>
+<div class="speaker-notes">
+  "Our Go-To-Market follows a proven Land, Expand, Dominate playbook. In Phase 1, during the first 6 months, we target 10 design-partner enterprises in BFSI and Healthcare through free pilot programs. Accenture's global partner channel is our primary distribution advantage - they have 6,000+ enterprise clients already deploying GenAI, and our solution plugs in as a governance layer. We also plan to open-source our evaluator SDK for developer advocacy. Phase 2 is about expansion. We convert pilots to paid Professional tier contracts and expand within accounts - going from 1 department to 5. We'll launch on Azure, AWS, and GCP marketplaces and build industry-specific compliance packs for HIPAA, SOX, and PCI-DSS. Phase 3 is dominance. Enterprise tier with on-premise deployment, international expansion across EU, APAC, and Middle East, and a platform play with an Evaluator Marketplace. Our target: 100+ enterprise accounts and $15 million in annual recurring revenue within 3 years."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 15 - FINANCIAL PROJECTIONS                              -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 15 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Financial Projections</div>
+    <h2 class="slide-title">3-Year Revenue Forecast</h2>
+
+    <div class="card-grid card-grid--2" style="margin-bottom:16px;">
+      <div class="card">
+        <h4>Revenue &amp; Growth</h4>
+        <table class="slide-table" style="font-size:0.75rem;">
+          <thead>
+            <tr><th>Metric</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Enterprise Clients</td><td>12</td><td>45</td><td>110</td></tr>
+            <tr><td>ARR</td><td>$1.2M</td><td>$5.8M</td><td>$15.4M</td></tr>
+            <tr><td>Monthly API Calls</td><td>5M</td><td>40M</td><td>200M</td></tr>
+            <tr><td>Gross Margin</td><td>72%</td><td>78%</td><td>82%</td></tr>
+            <tr><td>Net Revenue Retention</td><td>&mdash;</td><td>135%</td><td>142%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h4>Unit Economics</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <div class="big-number" style="font-size:1.3rem;">$96K</div>
+            <p>Average Contract Value</p>
+          </div>
+          <div>
+            <div class="big-number" style="font-size:1.3rem;">$18K</div>
+            <p>Customer Acquisition Cost</p>
+          </div>
+          <div>
+            <div class="big-number" style="font-size:1.3rem;">5.3x</div>
+            <p>LTV/CAC Ratio</p>
+          </div>
+          <div>
+            <div class="big-number" style="font-size:1.3rem;">14mo</div>
+            <p>Payback Period</p>
+          </div>
+        </div>
+        <hr class="slide-hr"/>
+        <p style="font-size:0.72rem;color:#bfa6d6;">Target breakeven: <strong style="color:#4ade80;">Month 18</strong></p>
+      </div>
+    </div>
+
+    <div class="chart-placeholder">
+      <div class="chart-icon">&#128202;</div>
+      Insert bar chart showing ARR growth: $1.2M &rarr; $5.8M &rarr; $15.4M (Year 1-3)<br/>
+      Overlay line chart showing gross margin expansion: 72% &rarr; 78% &rarr; 82%
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 15</span>
+  </div>
+</div>
+
+<div class="visual-note">Left: Revenue and growth data table. Right: 4 KPI boxes showing unit economics. Bottom: Dual-axis bar+line chart - bars for ARR growth ($1.2M to $5.8M to $15.4M) and line for gross margin expansion (72% to 82%).</div>
+<div class="speaker-notes">
+  "Here are our 3-year financial projections. In Year 1, we target 12 enterprise clients generating $1.2 million in annual recurring revenue. With the expansion motion kicking in during Year 2, we project 45 clients and $5.8 million ARR. By Year 3, we aim for 110 enterprise accounts and $15.4 million in ARR. Our unit economics are strong: Average Contract Value of $96K, Customer Acquisition Cost of $18K, giving us a 5.3x LTV/CAC ratio - well above the SaaS benchmark of 3x. Payback period is 14 months. Our gross margins expand from 72% to 82% as we scale, driven by SaaS infrastructure efficiencies. Net Revenue Retention of 142% by Year 3 reflects our expand-within-account strategy - teams that start with one department policy typically scale to five or more. We target breakeven by Month 18."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 16 - THE ASK                                            -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 16 of 18</div>
+
+<div class="slide slide--accent" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">The Ask</div>
+    <h2 class="slide-title">Investment Opportunity &amp; Use of Funds</h2>
+
+    <div class="card-grid card-grid--2" style="margin-bottom:16px;">
+      <div class="card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <p style="font-size:0.8rem;color:#bfa6d6;margin-bottom:4px;">Seeking Seed Round</p>
+        <div class="big-number" style="font-size:2.8rem;">$2.5M</div>
+        <p style="font-size:0.85rem;color:#c77dff;font-weight:600;">Pre-Series A Funding</p>
+        <hr class="slide-hr" style="width:50%;"/>
+        <p style="font-size:0.75rem;color:#bfa6d6;margin-top:8px;">18-month runway to product-market fit &amp; Series A readiness</p>
+      </div>
+
+      <div class="card">
+        <h4>Use of Funds</h4>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#d4c4e8;margin-bottom:4px;"><span>Engineering &amp; Product (45%)</span><span>$1.125M</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="width:45%;height:100%;background:linear-gradient(90deg,#8b00ff,#a855f7);border-radius:3px;"></div></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#d4c4e8;margin-bottom:4px;"><span>Sales &amp; Marketing (25%)</span><span>$625K</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="width:25%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px;"></div></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#d4c4e8;margin-bottom:4px;"><span>Infrastructure &amp; Cloud (15%)</span><span>$375K</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="width:15%;height:100%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:3px;"></div></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#d4c4e8;margin-bottom:4px;"><span>Compliance &amp; Legal (10%)</span><span>$250K</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="width:10%;height:100%;background:linear-gradient(90deg,#eab308,#facc15);border-radius:3px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#d4c4e8;margin-bottom:4px;"><span>Operations &amp; Reserve (5%)</span><span>$125K</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="width:5%;height:100%;background:linear-gradient(90deg,#f87171,#fca5a5);border-radius:3px;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 20px;">
+      <h4 style="margin-bottom:6px;">Milestones This Funding Enables</h4>
+      <div style="display:flex;gap:20px;font-size:0.78rem;color:#bfa6d6;">
+        <span><strong>15+ paying enterprise clients</strong></span>
+        <span><strong>$1.2M+ ARR</strong></span>
+        <span><strong>SOC 2 Type II certification</strong></span>
+        <span><strong>Series A ready</strong></span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 16</span>
+  </div>
+</div>
+
+<div class="visual-note">Left: Large funding amount with context. Right: Horizontal progress bars showing fund allocation percentages. Bottom: Milestone badges. Consider a donut/pie chart for the fund allocation breakdown.</div>
+<div class="speaker-notes">
+  "We're seeking $2.5 million in pre-Series A seed funding. This gives us 18 months of runway to achieve product-market fit and become Series A ready. Here's how we'll deploy the capital: 45% - $1.125 million - goes to Engineering and Product to expand our team and build out the production-grade platform from our prototype. 25% goes to Sales and Marketing for our enterprise GTM motion and brand building. 15% for Infrastructure and Cloud to support enterprise-grade scalability and reliability. 10% for Compliance and Legal - we need SOC 2 Type II certification to sell into regulated industries. And 5% for Operations and Reserve. The milestones this funding enables: 15+ paying enterprise clients, $1.2 million in ARR, SOC 2 certification, and Series A readiness within 18 months."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 17 - NEXT STEPS / ROADMAP                               -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 17 of 18</div>
+
+<div class="slide slide--dark" contenteditable="true">
+  <div class="slide-body">
+    <div style="margin-bottom:6px;font-size:0.72rem;font-weight:600;color:#a855f7;text-transform:uppercase;letter-spacing:2px;">Next Steps &amp; Roadmap</div>
+    <h2 class="slide-title">From Prototype to Production</h2>
+
+    <div class="timeline" style="margin-bottom:16px;">
+      <div class="timeline-item">
+        <h5>Q3 2026</h5>
+        <p><strong>Now:</strong> Working prototype validated across 6 scenarios. Accenture Innovation Challenge submission.</p>
+      </div>
+      <div class="timeline-item">
+        <h5>Q4 2026</h5>
+        <p>Production hardening. Enterprise auth (SSO/SAML). Begin 3 pilot engagements with design partners.</p>
+      </div>
+      <div class="timeline-item">
+        <h5>Q1 2027</h5>
+        <p>Launch cloud-hosted SaaS. SOC 2 Type II audit. Expand to 10+ pilots. Azure Marketplace listing.</p>
+      </div>
+      <div class="timeline-item">
+        <h5>Q2 2027</h5>
+        <p>Pilot to Paid conversion. HIPAA compliance pack. On-prem deployment option. Target: 15 paying clients.</p>
+      </div>
+      <div class="timeline-item">
+        <h5>H2 2027</h5>
+        <p>Series A raise. International expansion. Evaluator Marketplace launch. $5M+ ARR target.</p>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid--2">
+      <div class="card">
+        <h4>Technical Roadmap</h4>
+        <ul class="bullets">
+          <li><strong>Semantic embeddings</strong> for Knowledge Base (vector DB integration)</li>
+          <li><strong>Multi-model orchestration</strong> - support for 10+ LLM providers</li>
+          <li><strong>Custom evaluator plugins</strong> - extensible pipeline architecture</li>
+          <li><strong>Real-time streaming</strong> evaluation (token-by-token inspection)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Immediate Next Steps</h4>
+        <ul class="bullets">
+          <li><strong>Live demo</strong> of the working prototype (available now)</li>
+          <li><strong>Pilot program</strong> - deploy on your enterprise stack within 2 weeks</li>
+          <li><strong>Technical deep-dive</strong> - architecture review with your engineering team</li>
+          <li><strong>ROI assessment</strong> - custom cost-savings analysis for your AI fleet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer slide-footer--dark">
+    <span class="accenture-chevron">&gt;</span>
+    <span>Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 17</span>
+  </div>
+</div>
+
+<div class="visual-note">Top: Horizontal timeline from Q3 2026 to H2 2027 with milestone markers. Bottom: 2-column cards for Technical Roadmap and Next Steps. Consider a Gantt-style visualization for the timeline.</div>
+<div class="speaker-notes">
+  "Let me show you our path from prototype to production. Right now, in Q3 2026, we have a fully working prototype validated across 6 enterprise scenarios - that's what we're presenting today at the Accenture Innovation Challenge. By Q4 2026, we'll harden the platform for production, add enterprise authentication, and begin pilot engagements with 3 design partners. Q1 2027 sees our cloud-hosted SaaS launch, SOC 2 audit, Azure Marketplace listing, and expansion to 10+ pilots. By Q2 2027, we convert pilots to paid, launch our HIPAA compliance pack, and offer on-prem deployment. Our target is 15 paying clients by mid-2027. H2 2027 is our Series A raise, international expansion, and Evaluator Marketplace launch. On the technical roadmap, we're building vector-DB powered semantic search for the Knowledge Base, multi-model orchestration, custom evaluator plugins, and token-by-token streaming inspection. But the immediate ask is simple: we'd love to show you a live demo, discuss a pilot deployment, or schedule a technical deep-dive with your team."
+</div>
+
+
+<!-- ================================================================ -->
+<!--  SLIDE 18 - THANK YOU                                          -->
+<!-- ================================================================ -->
+<div class="section-divider">Slide 18 of 18</div>
+
+<div class="slide slide--thankyou" contenteditable="true">
+  <div style="text-align:center;">
+    <h1 style="font-size:3.5rem;font-weight:300;color:#ffffff;letter-spacing:-1px;">Thank you</h1>
+  </div>
+  <div class="slide-footer" style="position:absolute;bottom:0;left:0;right:0;">
+    <span class="accenture-chevron" style="color:rgba(255,255,255,0.5);font-size:1.5rem;">&gt;</span>
+    <span style="color:rgba(255,255,255,0.4);font-size:0.65rem;">Copyright &copy; 2026 Accenture. All rights reserved. &nbsp;&nbsp; 18</span>
+  </div>
+</div>
+
+<div class="visual-note">Full-screen purple gradient background. "Thank you" in large, light, elegant typography. Accenture chevron logo in bottom-left corner. Matches the provided screenshot exactly.</div>
+<div class="speaker-notes">
+  "Thank you for your time today. We are Team Ghee Khatam from IIT Guwahati, and ControlPlane.ai is our answer to making AI reinvention not just aspirational - but real, safe, and enterprise-ready. We have a working prototype that we're excited to demonstrate. We believe the future of enterprise AI demands real-time governance, and we're building the control plane for that future. We'd love to take your questions."
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  let notesVisible = true;
+  let visualsVisible = true;
+
+  function toggleNotes() {
+    notesVisible = !notesVisible;
+    document.querySelectorAll('.speaker-notes').forEach(function(el) {
+      el.style.display = notesVisible ? 'block' : 'none';
+    });
+  }
+
+  function toggleVisuals() {
+    visualsVisible = !visualsVisible;
+    document.querySelectorAll('.visual-note').forEach(function(el) {
+      el.style.display = visualsVisible ? 'block' : 'none';
+    });
+  }
+
+  // Add slide number indicator on scroll
+  var slides = document.querySelectorAll('.slide');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  slides.forEach(function(slide) {
+    slide.style.opacity = '0';
+    slide.style.transform = 'translateY(20px)';
+    slide.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(slide);
+  });
+</script>
+
+</body>
+</html>

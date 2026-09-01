@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # LLM API keys — loaded automatically from backend/.env
     GEMINI_API_KEY: str = ""
     OPENAI_API_KEY: str = ""
-    GROQ_API_KEY: str = ""
+    GROK_API_KEY: str = ""
     
     # Risk scoring thresholds
     LOW_RISK_THRESHOLD: float = 85.0

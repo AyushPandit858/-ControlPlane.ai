@@ -126,7 +126,8 @@ async def evaluate_interaction(
         prompt=req.prompt,
         use_case=req.use_case,
         model_provider=req.model_provider or "simulation",
-        simulated_flaw=req.simulated_flaw
+        simulated_flaw=req.simulated_flaw,
+        context_docs=context_docs
     )
     raw_response = llm_result["text"]
     llm_latency_ms = llm_result["llm_latency_ms"]
